@@ -1,3 +1,4 @@
+chmod +x ./jq
 ./jq --null-input \
     --arg whoami "`whoami`" \
     --arg printenv "`printenv`" \
