@@ -1,8 +1,3 @@
-output "instance_ami" {
-  value = aws_instance.ubuntu.ami
+output "external_provider_example" {
+    value = data.external.external_provider
 }
-
-output "instance_arn" {
-  value = aws_instance.ubuntu.arn
-}
-
