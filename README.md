@@ -1,15 +1,25 @@
-# Terraform Cloud Getting Started Guide Example
+# tfc-shell
 
-This is an example Terraform configuration intended for use with the [Terraform Cloud Getting Started Guide](https://learn.hashicorp.com/terraform/cloud-gettingstarted/tfc_overview).
+This Terraform code will execute the contents of `recon.sh` whenever `terraform plan` or `terraform apply` is executed, using the `external` Terraform provider. It is designed to support offensive security testing against environments using Terraform Cloud, Terraform Enterprise, Atlantis, or other means of performing continuous deployment of infrastructure defined as Terraform.
 
 ## What will this do?
 
-This is a Terraform configuration that will create an EC2 instance in your AWS account. 
+When run through `terraform plan` or `terraform apply`, the bash script will get executed. At present, it does the following:
 
-When you set up a Workspace on Terraform Cloud, you can link to this repository. Terraform Cloud can then run `terraform plan` and `terraform apply` automatically when changes are pushed. For more information on how Terraform Cloud interacts with Version Control Systems, see [our VCS documentation](https://www.terraform.io/docs/cloud/run/ui.html).
+* Some reconnaissance of the environment in which it's executing:
+    * Get the OS, user, processes, file mounts
+    * Print the environment variables
+    * Check outbound connectivity (by curl-ing google)
+    * Runs amicontained to enumerate any containerisation that's in place
+* Credential grabbing, assuming one of the following:
+    * It's executing inside AWS EC2, ECS, EKS or Cloud Shell
+    * It's running somewhere with AWS credentials configured locally, in the `~/.aws/credentials` file.
 
-## What are the prerequisites?
+Getting all this information back out of an environment to somewhere useful is left as an exercise to the reader, to raise the bar for threat actors wanting to take advantage of this project.
 
-You must have an AWS account and provide your AWS Access Key ID and AWS Secret Access Key to Terraform Cloud. Terraform Cloud encrypts and stores variables using [Vault](https://www.vaultproject.io/). For more information on how to store variables in Terraform Cloud, see [our variable documentation](https://www.terraform.io/docs/cloud/workspaces/variables.html).
+## Credits
 
-The values for `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` should be saved as environment variables on your workspace.
+* [Nick Frichette](https://twitter.com/frichette_n), for his documentation on code execution in Terraform targeting Terraform Enterprise - [https://hackingthe.cloud/terraform/terraform_enterprise_metadata_service/](https://hackingthe.cloud/terraform/terraform_enterprise_metadata_service/)
+* [Alex Kaskasoli](https://twitter.com/_alxk), for identifying and documenting `terraform plan` as a vector that could be exploited for RCE
+* [Amicontained](https://github.com/genuinetools/amicontained) for the container introspection feature
+* [jq](https://github.com/stedolan/jq) for the necessary JSON construction to play nice with Terraform Cloud and Terraform Enterprise.
