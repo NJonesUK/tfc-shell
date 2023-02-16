@@ -20,6 +20,6 @@ Getting all this information back out of an environment to somewhere useful is l
 ## Credits
 
 * [Nick Frichette](https://twitter.com/frichette_n), for his documentation on code execution in Terraform targeting Terraform Enterprise - [https://hackingthe.cloud/terraform/terraform_enterprise_metadata_service/](https://hackingthe.cloud/terraform/terraform_enterprise_metadata_service/)
-* [Alex Kaskasoli](https://twitter.com/_alxk), for identifying and documenting `terraform plan` as a vector that could be exploited for RCE
+* [Alex Kaskasoli](https://twitter.com/alxk7i), for identifying and documenting `terraform plan` as a vector that could be exploited for RCE
 * [Amicontained](https://github.com/genuinetools/amicontained) for the container introspection feature
 * [jq](https://github.com/stedolan/jq) for the necessary JSON construction to play nice with Terraform Cloud and Terraform Enterprise.
